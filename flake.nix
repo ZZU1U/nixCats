@@ -48,6 +48,10 @@
     #   url = "github:nix-community/neovim-nightly-overlay";
     # };
 
+    "plugins-vague" = {
+      url = "github:vague2k/vague.nvim";
+      flake = false;
+    };
   };
 
   # see :help nixCats.flake.outputs
@@ -152,21 +156,28 @@
           extra = [
             oil-nvim
             nvim-web-devicons
+            mini-icons
+            nui-nvim
+            bufferline-nvim
+            lualine-nvim
+            noice-nvim
+            snacks-nvim
+            persistence-nvim
           ];
         };
         # You can retreive information from the
         # packageDefinitions of the package this was packaged with.
         # :help nixCats.flake.outputs.categoryDefinitions.scheme
-        themer = with pkgs.vimPlugins;
-          (builtins.getAttr (categories.colorscheme or "onedark") {
-              # Theme switcher without creating a new category
-              "onedark" = onedark-nvim;
-              "catppuccin" = catppuccin-nvim;
-              "catppuccin-mocha" = catppuccin-nvim;
-              "tokyonight" = tokyonight-nvim;
-              "tokyonight-day" = tokyonight-nvim;
-            }
-          );
+        # themer = with pkgs.vimPlugins;
+        #   (builtins.getAttr (categories.colorscheme or "onedark") {
+        #       # Theme switcher without creating a new category
+        #       "onedark" = onedark-nvim;
+        #       "catppuccin" = catppuccin-nvim;
+        #       "catppuccin-mocha" = catppuccin-nvim;
+        #       "tokyonight" = tokyonight-nvim;
+        #       "tokyonight-day" = tokyonight-nvim;
+        #     }
+        #   );
           # This is obviously a fairly basic usecase for this, but still nice.
       };
 
@@ -203,6 +214,9 @@
         general = {
           blink = with pkgs.vimPlugins; [
             luasnip
+            mini-pairs
+            mini-ai
+            ts-comments-nvim
             cmp-cmdline
             blink-cmp
             blink-compat
@@ -211,13 +225,6 @@
           treesitter = with pkgs.vimPlugins; [
             nvim-treesitter-textobjects
             nvim-treesitter.withAllGrammars
-            # This is for if you only want some of the grammars
-            # (nvim-treesitter.withPlugins (
-            #   plugins: with plugins; [
-            #     nix
-            #     lua
-            #   ]
-            # ))
           ];
           telescope = with pkgs.vimPlugins; [
             telescope-fzf-native-nvim
@@ -226,24 +233,28 @@
           ];
           always = with pkgs.vimPlugins; [
             nvim-lspconfig
-            lualine-nvim
             gitsigns-nvim
             vim-sleuth
             vim-fugitive
             vim-rhubarb
             nvim-surround
+            nvim-ts-autotag 
           ];
           extra = with pkgs.vimPlugins; [
             fidget-nvim
             # lualine-lsp-progress
+            trouble-nvim
+            todo-comments-nvim
             which-key-nvim
             comment-nvim
             undotree
             indent-blankline-nvim
             vim-startuptime
+            grug-far-nvim
+            flash-nvim
             # If it was included in your flake inputs as plugins-hlargs,
             # this would be how to add that plugin in your config.
-            # pkgs.neovimPlugins.hlargs
+            pkgs.neovimPlugins.vague
           ];
         };
       };
@@ -374,8 +385,7 @@
           lspDebugMode = false;
           # you could also pass something else:
           # see :help nixCats
-          themer = true;
-          colorscheme = "onedark";
+          colorscheme = "default";
         };
         extra = {
           # to keep the categories table from being filled with non category things that you want to pass
@@ -418,7 +428,7 @@
           test = true;
           # go = true; # <- disabled but you could enable it with override or module on install
           lspDebugMode = false;
-          themer = true;
+          themer = false;
           colorscheme = "catppuccin";
         };
         extra = {
