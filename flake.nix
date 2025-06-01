@@ -47,9 +47,15 @@
     # neovim-nightly-overlay = {
     #   url = "github:nix-community/neovim-nightly-overlay";
     # };
+    
 
     "plugins-vague" = {
       url = "github:vague2k/vague.nvim";
+      flake = false;
+    };
+
+    "plugins-omni-preview" = {
+      url = "github:sylvanfranklin/omni-preview.nvim";
       flake = false;
     };
   };
@@ -163,6 +169,7 @@
             noice-nvim
             snacks-nvim
             persistence-nvim
+            alpha-nvim
           ];
         };
         # You can retreive information from the
@@ -178,7 +185,7 @@
         #       "tokyonight-day" = tokyonight-nvim;
         #     }
         #   );
-          # This is obviously a fairly basic usecase for this, but still nice.
+        # This is obviously a fairly basic usecase for this, but still nice.
       };
 
       # not loaded automatically at startup.
@@ -211,12 +218,24 @@
         neonixdev = with pkgs.vimPlugins; [
           lazydev-nvim
         ];
+
+        # { import = "lazyvim.plugins.extras.lang.typescript" },
+        # { import = "lazyvim.plugins.extras.lang.docker" },
+        # { import = "lazyvim.plugins.extras.lang.git" },
+        # { import = "lazyvim.plugins.extras.lang.nix" },
+        # { import = "lazyvim.plugins.extras.lang.json" },
+        # { import = "lazyvim.plugins.extras.lang.python" },
+        # { import = "lazyvim.plugins.extras.lang.rust" },
+        # { import = "lazyvim.plugins.extras.lang.sql" },
+
+        previews = with pkgs.vimPlugins; [
+          typst-preview-nvim
+          csvview-nvim
+          pkgs.neovimPlugins.omni-preview
+        ];
         general = {
           blink = with pkgs.vimPlugins; [
             luasnip
-            mini-pairs
-            mini-ai
-            ts-comments-nvim
             cmp-cmdline
             blink-cmp
             blink-compat
@@ -240,18 +259,25 @@
             nvim-surround
             nvim-ts-autotag 
           ];
+          coding = with pkgs.vimPlugins; [
+            mini-pairs
+            mini-ai
+            ts-comments-nvim
+          ];
+          editor = with pkgs.vimPlugins; [
+            grug-far-nvim
+            flash-nvim
+            trouble-nvim
+            todo-comments-nvim
+          ];
           extra = with pkgs.vimPlugins; [
             fidget-nvim
             # lualine-lsp-progress
-            trouble-nvim
-            todo-comments-nvim
             which-key-nvim
             comment-nvim
             undotree
             indent-blankline-nvim
             vim-startuptime
-            grug-far-nvim
-            flash-nvim
             # If it was included in your flake inputs as plugins-hlargs,
             # this would be how to add that plugin in your config.
             pkgs.neovimPlugins.vague
@@ -385,7 +411,7 @@
           lspDebugMode = false;
           # you could also pass something else:
           # see :help nixCats
-          colorscheme = "default";
+          colorscheme = "vague";
         };
         extra = {
           # to keep the categories table from being filled with non category things that you want to pass

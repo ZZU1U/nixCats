@@ -3,7 +3,6 @@ local colorschemeName = nixCats("colorscheme")
 -- Could I lazy load on colorscheme with lze?
 -- sure. But I was going to call vim.cmd.colorscheme() during startup anyway
 -- this is just an example, feel free to do a better job!
-vim.cmd.colorscheme(colorschemeName)
 
 local ok, notify = pcall(require, "notify")
 if ok then
@@ -65,16 +64,19 @@ require("lze").load({
 	{ import = "myLuaConf.plugins.telescope" },
 	{ import = "myLuaConf.plugins.treesitter" },
 	{ import = "myLuaConf.plugins.completion" },
-        {
-                "vague",
-                for_cat = "general.extra",
-		event = "DeferredUIEnter",
-                after = function(plugin)
-                        require("vague").setup({
-                                transparent = true
-                        })
-                end
-        },
+	{ import = "myLuaConf.plugins.coding" },
+	{ import = "myLuaConf.plugins.editor" },
+	{ import = "myLuaConf.plugins.ui" },
+	{
+		"vague",
+		for_cat = "general.extra",
+		after = function(plugin)
+			require("vague").setup({
+				transparent = true,
+			})
+			vim.cmd.colorscheme(colorschemeName)
+		end,
+	},
 	{
 		"markdown-preview.nvim",
 		-- NOTE: for_cat is a custom handler that just sets enabled value for us,
@@ -160,20 +162,6 @@ require("lze").load({
 			require("fidget").setup({})
 		end,
 	},
-	-- {
-	--   "hlargs",
-	--   for_cat = 'general.extra',
-	--   event = "DeferredUIEnter",
-	--   -- keys = "",
-	--   dep_of = { "nvim-lspconfig" },
-	--   after = function(plugin)
-	--     require('hlargs').setup {
-	--       color = '#32a88f',
-	--     }
-	--     vim.cmd([[hi clear @lsp.type.parameter]])
-	--     vim.cmd([[hi link @lsp.type.parameter Hlargs]])
-	--   end,
-	-- },
 	{
 		"lualine.nvim",
 		for_cat = "general.always",
@@ -185,7 +173,7 @@ require("lze").load({
 		after = function(plugin)
 			require("lualine").setup({
 				options = {
-					icons_enabled = false,
+					icons_enabled = true,
 					theme = colorschemeName,
 					component_separators = "|",
 					section_separators = "",

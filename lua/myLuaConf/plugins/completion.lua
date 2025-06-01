@@ -104,9 +104,9 @@ return {
 					},
 				},
 				snippets = {
-					preset = "luasnip",
-				},
-				sources = {
+                    preset = "luasnip",
+                },
+                sources = {
 					default = { "lsp", "path", "snippets", "buffer", "omni" },
 					providers = {
 						path = {
