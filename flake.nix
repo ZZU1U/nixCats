@@ -134,6 +134,13 @@
           go-tools
           gccgo
         ];
+        typescript = with pkgs; [
+          vimPlugins.typescript-tools-nvim
+        ];
+        rust = with pkgs; [ ];
+        python = with pkgs; [
+          pyright
+        ];
         # and easily check if they are included in lua
         format = with pkgs; [
         ];
@@ -218,16 +225,6 @@
         neonixdev = with pkgs.vimPlugins; [
           lazydev-nvim
         ];
-
-        # { import = "lazyvim.plugins.extras.lang.typescript" },
-        # { import = "lazyvim.plugins.extras.lang.docker" },
-        # { import = "lazyvim.plugins.extras.lang.git" },
-        # { import = "lazyvim.plugins.extras.lang.nix" },
-        # { import = "lazyvim.plugins.extras.lang.json" },
-        # { import = "lazyvim.plugins.extras.lang.python" },
-        # { import = "lazyvim.plugins.extras.lang.rust" },
-        # { import = "lazyvim.plugins.extras.lang.sql" },
-
         previews = with pkgs.vimPlugins; [
           typst-preview-nvim
           csvview-nvim

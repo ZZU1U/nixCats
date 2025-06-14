@@ -7,6 +7,7 @@ local colorschemeName = nixCats("colorscheme")
 local ok, notify = pcall(require, "notify")
 if ok then
 	notify.setup({
+		background_colour = "#000000",
 		on_open = function(win)
 			vim.api.nvim_win_set_config(win, { focusable = false })
 		end,
@@ -71,9 +72,7 @@ require("lze").load({
 		"vague",
 		for_cat = "general.extra",
 		after = function(plugin)
-			require("vague").setup({
-				transparent = true,
-			})
+			require("vague").setup({})
 			vim.cmd.colorscheme(colorschemeName)
 		end,
 	},
@@ -175,8 +174,11 @@ require("lze").load({
 				options = {
 					icons_enabled = true,
 					theme = colorschemeName,
-					component_separators = "|",
-					section_separators = "",
+					always_show_tabline = false,
+					-- component_separators = "|",
+					-- section_separators = "",
+					component_separators = { left = "", right = "" },
+					section_separators = { left = "", right = "" },
 				},
 				sections = {
 					lualine_c = {
@@ -218,11 +220,11 @@ require("lze").load({
 			require("gitsigns").setup({
 				-- See `:help gitsigns.txt`
 				signs = {
-					add = { text = "+" },
-					change = { text = "~" },
-					delete = { text = "_" },
-					topdelete = { text = "‾" },
-					changedelete = { text = "~" },
+					-- add = { text = "+" },
+					-- change = { text = "~" },
+					-- delete = { text = "_" },
+					-- topdelete = { text = "‾" },
+					-- changedelete = { text = "~" },
 				},
 				on_attach = function(bufnr)
 					local gs = package.loaded.gitsigns
