@@ -268,6 +268,7 @@
             todo-comments-nvim
           ];
           extra = with pkgs.vimPlugins; [
+            neorg
             fidget-nvim
             # lualine-lsp-progress
             which-key-nvim
@@ -452,7 +453,7 @@
           # go = true; # <- disabled but you could enable it with override or module on install
           lspDebugMode = false;
           themer = false;
-          colorscheme = "catppuccin";
+          colorscheme = "vague";
         };
         extra = {
           # nixCats.extra("path.to.val") will perform vim.tbl_get(nixCats.extra, "path" "to" "val")

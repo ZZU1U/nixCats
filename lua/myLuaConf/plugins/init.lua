@@ -66,6 +66,7 @@ require("lze").load({
 	{ import = "myLuaConf.plugins.treesitter" },
 	{ import = "myLuaConf.plugins.completion" },
 	{ import = "myLuaConf.plugins.coding" },
+	{ import = "myLuaConf.plugins.tools" },
 	{ import = "myLuaConf.plugins.editor" },
 	{ import = "myLuaConf.plugins.ui" },
 	{
